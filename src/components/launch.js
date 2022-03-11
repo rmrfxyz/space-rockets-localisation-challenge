@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import { format as timeAgo } from "timeago.js";
 import { Watch, MapPin, Navigation, Layers } from "react-feather";
@@ -29,12 +29,28 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 
 import * as TimeSpace from "@mapbox/timespace";
-import { FavoritesContext } from '../store/favorites-context';
+import FavoritesContext from '../store/favorites-context';
 
 export default function Launch() {
   let { launchId } = useParams();
   const { data: launch, error } = useSpaceX(`/launches/${launchId}`);
   
+  const favoritesContext = useContext(FavoritesContext);
+  let isAlreadyFav = favoritesContext.launchItems.find((elem) => {
+    return elem.flight_number === launch.flight_number;
+  });
+      
+  const toggleFavorite = () => {
+    console.log('toggle fav launch ', launch)
+    console.log('context ', favoritesContext.launchItems)
+
+    if(isAlreadyFav){
+      favoritesContext.delLaunchItem(launch.flight_number)
+    } else {
+      favoritesContext.addLaunchItem(launch)
+    }
+  };
+
   if (error) return <Error />;
   if (!launch) {
     return (
@@ -46,13 +62,28 @@ export default function Launch() {
 
   return (
     <div>
-      <Breadcrumbs
-        items={[
-          { label: "Home", to: "/" },
-          { label: "Launches", to: ".." },
-          { label: `#${launch.flight_number}` },
-        ]}
-      />
+      <Flex
+        justifyContent="space-between"
+      >
+        <Breadcrumbs
+          items={[
+            { label: "Home", to: "/" },
+            { label: "Launches", to: ".." },
+            { label: `#${launch.flight_number}` },
+          ]}
+        />
+
+        <Button 
+          marginTop='auto' 
+          marginBottom='auto'
+          marginRight='5' 
+          onClick={toggleFavorite}
+          fontSize="2.5rem"
+        >
+          { isAlreadyFav ? '★' : '☆'}
+        </Button>  
+
+      </Flex>
       <Header launch={launch} />
       <Box m={[3, 6]}>
         <TimeAndLocation launch={launch} />
@@ -67,14 +98,7 @@ export default function Launch() {
   );
 }
 
-
 function Header({ launch }) {
-  
-  const toggleFavorite = () => {
-    console.log('toggle fav launch ', launch)
-
-  };
-
   return (
     <Flex
       bgImage={`url(${launch.links.flickr_images[0]})`}
@@ -106,7 +130,6 @@ function Header({ launch }) {
         borderRadius="lg"
       >
         {launch.mission_name}
-        <Button onClick={toggleFavorite}>&#9734;</Button>      
       </Heading>
       <Stack isInline spacing="3">
         <Badge variantColor="purple" fontSize={["xs", "md"]}>

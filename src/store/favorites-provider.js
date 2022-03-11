@@ -6,16 +6,20 @@ const reducer = (state, action) => {
   console.dir(state)
   console.dir(action)
 
-  if(action.type == 'ADD_LAUNCH_ITEM'){
-    console.log('ADD_LAUNCH_ITEM')
+  if(action.type === 'ADD_LAUNCH_ITEM'){
+    console.log('ADD_LAUNCH_ITEM', [...state.launchItems, action.item])
+    return { launchItems: [action.item, ...state.launchItems]}
   }
 
-  if(action.type == 'DEL_LAUNCH_ITEM'){
+  if(action.type === 'DEL_LAUNCH_ITEM'){
     console.log('DEL_LAUNCH_ITEM')
+    return { launchItems: state.launchItems.filter((item) => {
+      return item.flight_number != action.id
+    }) }
   }
 };
 
-export default ({ content }) => {
+export default ({ children }) => {
   const [favState, dispatchFavAction] = useReducer(reducer, {
     launchItems: [],
     padItems: []
@@ -25,7 +29,7 @@ export default ({ content }) => {
     dispatchFavAction({ type: 'ADD_LAUNCH_ITEM', item });
   };
 
-  const delLaunchItem = (item) => {
+  const delLaunchItem = (id) => {
     dispatchFavAction({ type: 'DEL_LAUNCH_ITEM', id });
   };
 
@@ -36,7 +40,7 @@ export default ({ content }) => {
       addLaunchItem,
       delLaunchItem,
     }}>
-      {content}
+      {children}
     </FavoritesContext.Provider>
   )
 };

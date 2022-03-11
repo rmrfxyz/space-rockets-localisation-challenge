@@ -9,18 +9,22 @@ import LaunchPads from "./launch-pads";
 import LaunchPad from "./launch-pad";
 
 import FavoritesPanel from "./favorites-panel";
+import FavoritesProvider from "../store/favorites-provider";
 
 export default function App() {
   return (
     <div>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/launches" element={<Launches />} />
-        <Route path="/launches/:launchId" element={<Launch />} />
-        <Route path="/launch-pads" element={<LaunchPads />} />
-        <Route path="/launch-pads/:launchPadId" element={<LaunchPad />} />
-      </Routes>
+      <FavoritesProvider>
+        <NavBar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/launches" element={<Launches />} />
+          <Route path="/launches/:launchId" element={<Launch />} />
+          <Route path="/launch-pads" element={<LaunchPads />} />
+          <Route path="/launch-pads/:launchPadId" element={<LaunchPad />} />
+        </Routes>
+      </FavoritesProvider>
     </div>
   );
 }
@@ -46,7 +50,7 @@ function NavBar() {
       </Text>
 
       <FavoritesPanel />
-      
+
     </Flex>
   );
 }
