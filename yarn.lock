@@ -1259,6 +1259,33 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
+"@mapbox/tile-cover@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@mapbox/tile-cover/-/tile-cover-3.0.2.tgz#e10b1bbfe65ee28a7f1a0127deb699635d0f8d7a"
+  integrity sha1-4Qsbv+Ze4op/GgEn3raZY10PjXo=
+  dependencies:
+    "@mapbox/tilebelt" "^1.0.1"
+
+"@mapbox/tilebelt@^1.0.1":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@mapbox/tilebelt/-/tilebelt-1.0.2.tgz#32936c3acad3ea3e669bb083a598bcc7d74b4ec9"
+  integrity sha512-tGJN2VIgWrXqBTPIxFVklklIpcy6ss8W5ouq+cjNLXPXFraRaDR4Ice+5Q8/uLX+6aH23lWBMydOIn8PcdVcpA==
+
+"@mapbox/timespace@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@mapbox/timespace/-/timespace-2.0.4.tgz#cae8dc13fa22ede858167e4be22f5167a24c013f"
+  integrity sha1-yujcE/oi7ehYFn5L4i9RZ6JMAT8=
+  dependencies:
+    "@mapbox/tile-cover" "^3.0.2"
+    "@mapbox/tilebelt" "^1.0.1"
+    d3-queue "^3.0.3"
+    mkdirp "^0.5.1"
+    moment "^2.12.0"
+    moment-timezone "^0.5.5"
+    rimraf "^2.5.4"
+    simple-statistics "^2.3.0"
+    tile-cover "^3.0.1"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -3555,6 +3582,11 @@ cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
+
+d3-queue@^3.0.3:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/d3-queue/-/d3-queue-3.0.7.tgz#c93a2e54b417c0959129d7d73f6cf7d4292e7618"
+  integrity sha1-yTouVLQXwJWRKdfXP2z31Ckudhg=
 
 d@1, d@^1.0.1:
   version "1.0.1"
@@ -6901,6 +6933,18 @@ mkdirp@^0.5.5:
   dependencies:
     minimist "^1.2.5"
 
+moment-timezone@^0.5.5:
+  version "0.5.34"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.34.tgz#a75938f7476b88f155d3504a9343f7519d9a405c"
+  integrity sha512-3zAEHh2hKUs3EXLESx/wsgw6IQdusOT8Bxm3D9UrHPQR7zlMmzwybC8zHEM1tQ4LJwP7fcxrWr8tuBg05fFCbg==
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0", moment@^2.12.0:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -9461,6 +9505,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
+simple-statistics@^2.3.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/simple-statistics/-/simple-statistics-2.5.0.tgz#7cd77b04288402f17fe21fd2b63c5e1a51ef3f51"
+  integrity sha1-fNd7BCiEAvF/4h/StjxeGlHvP1E=
+
 simple-swizzle@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/simple-swizzle/-/simple-swizzle-0.2.2.tgz#a4da6b635ffcccca33f70d17cb92592de95e557a"
@@ -10084,6 +10133,18 @@ thunky@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.1.0.tgz#5abaf714a9405db0504732bbccd2cedd9ef9537d"
   integrity sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==
+
+tile-cover@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/tile-cover/-/tile-cover-3.0.1.tgz#3e6d93d1ec2cdf29e164a2e2a51190fd7a4e1e2e"
+  integrity sha1-Pm2T0ews3ynhZKLipRGQ/XpOHi4=
+  dependencies:
+    tilebelt "^1.0.1"
+
+tilebelt@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tilebelt/-/tilebelt-1.0.1.tgz#3bbf7113b3fec468efb0d9148f4bb71ef126a21a"
+  integrity sha1-O79xE7P+xGjvsNkUj0u3HvEmoho=
 
 timeago.js@^4.0.2:
   version "4.0.2"
