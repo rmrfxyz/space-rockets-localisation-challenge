@@ -19,6 +19,7 @@ import {
   Stack,
   AspectRatioBox,
   StatGroup,
+  Tooltip,
 } from "@chakra-ui/core";
 
 import { useSpaceX } from "../utils/use-space-x";
@@ -26,10 +27,12 @@ import { formatDateTime } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 
+import * as TimeSpace from "@mapbox/timespace";
+
 export default function Launch() {
   let { launchId } = useParams();
   const { data: launch, error } = useSpaceX(`/launches/${launchId}`);
-
+  
   if (error) return <Error />;
   if (!launch) {
     return (
@@ -114,6 +117,21 @@ function Header({ launch }) {
 }
 
 function TimeAndLocation({ launch }) {
+  const { data: launchPad, error } = useSpaceX(`/launchpads/${launch.launch_site.site_id}`);
+
+  let tz = null;
+
+  // OBS: this causes the date to flicker, as it 1st renders as UTC;
+  // TODO: should there be a placeholder or other solution?
+  if(launchPad){
+    let fuzzT = TimeSpace
+      .getFuzzyLocalTimeFromPoint(launch.launch_date_unix, [
+        launchPad.location.longitude, 
+        launchPad.location.latitude
+      ])
+    tz = fuzzT._z.name;
+  }
+
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
@@ -124,7 +142,9 @@ function TimeAndLocation({ launch }) {
           </Box>
         </StatLabel>
         <StatNumber fontSize={["md", "xl"]}>
-          {formatDateTime(launch.launch_date_local)}
+          <Tooltip label={formatDateTime(launch.launch_date_utc)}>
+            {formatDateTime(launch.launch_date_utc, tz)}
+          </Tooltip> 
         </StatNumber>
         <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
       </Stat>
