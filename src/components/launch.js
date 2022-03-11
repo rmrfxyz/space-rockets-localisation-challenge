@@ -20,6 +20,7 @@ import {
   AspectRatioBox,
   StatGroup,
   Tooltip,
+  Button,
 } from "@chakra-ui/core";
 
 import { useSpaceX } from "../utils/use-space-x";
@@ -28,6 +29,7 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 
 import * as TimeSpace from "@mapbox/timespace";
+import { FavoritesContext } from '../store/favorites-context';
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -65,7 +67,14 @@ export default function Launch() {
   );
 }
 
+
 function Header({ launch }) {
+  
+  const toggleFavorite = () => {
+    console.log('toggle fav launch ', launch)
+
+  };
+
   return (
     <Flex
       bgImage={`url(${launch.links.flickr_images[0]})`}
@@ -97,6 +106,7 @@ function Header({ launch }) {
         borderRadius="lg"
       >
         {launch.mission_name}
+        <Button onClick={toggleFavorite}>&#9734;</Button>      
       </Heading>
       <Stack isInline spacing="3">
         <Badge variantColor="purple" fontSize={["xs", "md"]}>
@@ -110,7 +120,7 @@ function Header({ launch }) {
           <Badge variantColor="red" fontSize={["xs", "md"]}>
             Failed
           </Badge>
-        )}
+        )}      
       </Stack>
     </Flex>
   );
@@ -131,7 +141,7 @@ function TimeAndLocation({ launch }) {
       ])
     tz = fuzzT._z.name;
   }
-
+  
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
