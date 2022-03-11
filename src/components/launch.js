@@ -29,7 +29,7 @@ import Breadcrumbs from "./breadcrumbs";
 export default function Launch() {
   let { launchId } = useParams();
   const { data: launch, error } = useSpaceX(`/launches/${launchId}`);
-
+  
   if (error) return <Error />;
   if (!launch) {
     return (
@@ -114,6 +114,10 @@ function Header({ launch }) {
 }
 
 function TimeAndLocation({ launch }) {
+  console.dir(launch.launch_date_utc)
+  const { data: launchPad, error } = useSpaceX(`/launchpads/${launch.launch_site.site_id}`);
+
+
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
@@ -124,7 +128,7 @@ function TimeAndLocation({ launch }) {
           </Box>
         </StatLabel>
         <StatNumber fontSize={["md", "xl"]}>
-          {formatDateTime(launch.launch_date_local)}
+          {formatDateTime(launch.launch_date_utc, 'UTC')}
         </StatNumber>
         <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
       </Stat>
