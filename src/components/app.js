@@ -8,6 +8,8 @@ import Home from "./home";
 import LaunchPads from "./launch-pads";
 import LaunchPad from "./launch-pad";
 
+import FavoritesPanel from "./favorites-panel";
+
 export default function App() {
   return (
     <div>
@@ -42,6 +44,9 @@ function NavBar() {
       >
         ¡SPACE·R0CKETS!
       </Text>
+
+      <FavoritesPanel />
+      
     </Flex>
   );
 }
