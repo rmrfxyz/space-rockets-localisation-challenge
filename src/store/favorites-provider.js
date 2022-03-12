@@ -12,7 +12,7 @@ const reducer = (state, action) => {
   }
 
   if(action.type === 'DEL_LAUNCH_ITEM'){
-    console.log('DEL_LAUNCH_ITEM')
+    console.log('DEL_LAUNCH_ITEM', action)
     return { launchItems: state.launchItems.filter((item) => {
       return item.flight_number != action.id
     }) }

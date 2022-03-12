@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import { format as timeAgo } from "timeago.js";
 import { Watch, MapPin, Navigation, Layers } from "react-feather";
@@ -20,7 +20,6 @@ import {
   AspectRatioBox,
   StatGroup,
   Tooltip,
-  Button,
 } from "@chakra-ui/core";
 
 import { useSpaceX } from "../utils/use-space-x";
@@ -29,28 +28,12 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 
 import * as TimeSpace from "@mapbox/timespace";
-import FavoritesContext from '../store/favorites-context';
+import ToggleFavoriteBtn from './toggle-favorite-button';
 
 export default function Launch() {
   let { launchId } = useParams();
   const { data: launch, error } = useSpaceX(`/launches/${launchId}`);
   
-  const favoritesContext = useContext(FavoritesContext);
-  let isAlreadyFav = favoritesContext.launchItems.find((elem) => {
-    return elem.flight_number === launch.flight_number;
-  });
-      
-  const toggleFavorite = () => {
-    console.log('toggle fav launch ', launch)
-    console.log('context ', favoritesContext.launchItems)
-
-    if(isAlreadyFav){
-      favoritesContext.delLaunchItem(launch.flight_number)
-    } else {
-      favoritesContext.addLaunchItem(launch)
-    }
-  };
-
   if (error) return <Error />;
   if (!launch) {
     return (
@@ -73,15 +56,7 @@ export default function Launch() {
           ]}
         />
 
-        <Button 
-          marginTop='auto' 
-          marginBottom='auto'
-          marginRight='5' 
-          onClick={toggleFavorite}
-          fontSize="2.5rem"
-        >
-          { isAlreadyFav ? '★' : '☆'}
-        </Button>  
+        <ToggleFavoriteBtn launch={launch} />
 
       </Flex>
       <Header launch={launch} />
