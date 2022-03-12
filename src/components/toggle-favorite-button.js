@@ -28,7 +28,6 @@ export default ({launch}) => {
     <Button 
       marginTop='auto' 
       marginBottom='auto'
-      marginRight='5' 
       onClick={toggleFavorite}
       fontSize="2rem"
     >

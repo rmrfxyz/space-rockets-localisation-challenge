@@ -9,6 +9,9 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 
+import toggleFavoriteButton from "./toggle-favorite-button";
+import ToggleFavoriteButton from "./toggle-favorite-button";
+
 const PAGE_SIZE = 12;
 
 export default function Launches() {
@@ -32,7 +35,20 @@ export default function Launches() {
           data
             .flat()
             .map((launch) => (
-              <LaunchItem launch={launch} key={launch.flight_number} />
+              <Box key={launch.flight_number}
+                position='relative'
+              >
+                <Box 
+                  position='absolute'
+                  zIndex='2'
+                  bottom='1rem'
+                  right='1rem'
+                >
+                  <ToggleFavoriteButton launch={launch} />
+                </Box>
+        
+                <LaunchItem launch={launch} />
+              </Box>
             ))}
       </SimpleGrid>
       <LoadMoreButton
@@ -55,6 +71,7 @@ export function LaunchItem({ launch }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      display='block'
     >
       <Image
         src={

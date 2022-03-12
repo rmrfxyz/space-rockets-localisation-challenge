@@ -28,7 +28,7 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 
 import * as TimeSpace from "@mapbox/timespace";
-import ToggleFavoriteBtn from './toggle-favorite-button';
+import ToggleFavoriteButton from './toggle-favorite-button';
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -56,7 +56,12 @@ export default function Launch() {
           ]}
         />
 
-        <ToggleFavoriteBtn launch={launch} />
+      <Box 
+        marginTop='1rem'
+        marginRight='1.5rem'
+      >
+        <ToggleFavoriteButton launch={launch} />
+      </Box>
 
       </Flex>
       <Header launch={launch} />
