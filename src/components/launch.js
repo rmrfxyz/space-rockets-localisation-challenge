@@ -56,14 +56,14 @@ export default function Launch() {
           ]}
         />
 
-      <Box 
-        marginTop='1rem'
-        marginRight='1.5rem'
-      >
-        <ToggleFavoriteButton launch={launch} />
-      </Box>
-
+        <Box 
+          marginTop='1rem'
+          marginRight='1.5rem'
+        >
+          <ToggleFavoriteButton item={launch} />
+        </Box>
       </Flex>
+      
       <Header launch={launch} />
       <Box m={[3, 6]}>
         <TimeAndLocation launch={launch} />

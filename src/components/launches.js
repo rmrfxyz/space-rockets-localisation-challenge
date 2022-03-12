@@ -23,7 +23,7 @@ export default function Launches() {
       sort: "launch_date_utc",
     }
   );
-  console.log(data, error);
+
   return (
     <div>
       <Breadcrumbs
@@ -44,7 +44,7 @@ export default function Launches() {
                   bottom='1rem'
                   right='1rem'
                 >
-                  <ToggleFavoriteButton launch={launch} />
+                  <ToggleFavoriteButton item={launch} />
                 </Box>
         
                 <LaunchItem launch={launch} />

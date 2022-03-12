@@ -5,22 +5,28 @@ import {
   Button,
 } from "@chakra-ui/core";
 
-export default ({launch}) => {
+export default ({item}) => {
   const favoritesContext = useContext(FavoritesContext);
   
-  let isAlreadyFav = favoritesContext.launchItems.find((elem) => {
-    if(!launch || !elem) return false;
-    return elem.flight_number === launch.flight_number;
-  });
+  let isAlreadyFav;
+  
+  if(item && item.flight_number){
+    isAlreadyFav = favoritesContext.launchItems.find((launch) => {
+      if(!item || !launch) return false;
+      return item.flight_number === launch.flight_number;
+    });
+  } else if(item && item.id) {
+    isAlreadyFav = favoritesContext.padItems.find((pad) => {
+      if(!item || !pad) return false;
+      return item.id === pad.id;
+    });
+  }
       
   const toggleFavorite = () => {
-    console.log('toggle fav launch ', launch)
-    console.log('context ', favoritesContext.launchItems)
-
     if(isAlreadyFav){
-      favoritesContext.delLaunchItem(launch.flight_number)
+      favoritesContext.delItem(item)
     } else {
-      favoritesContext.addLaunchItem(launch)
+      favoritesContext.addItem(item)
     }
   };
 

@@ -3,19 +3,31 @@ import FavoritesContext from "./favorites-context";
 
 const reducer = (state, action) => {
 
-  console.dir(state)
-  console.dir(action)
-
   if(action.type === 'ADD_LAUNCH_ITEM'){
-    console.log('ADD_LAUNCH_ITEM', [...state.launchItems, action.item])
-    return { launchItems: [action.item, ...state.launchItems]}
+    return { launchItems: [action.item, ...state.launchItems], 
+      padItems: state.padItems
+    }
   }
 
   if(action.type === 'DEL_LAUNCH_ITEM'){
-    console.log('DEL_LAUNCH_ITEM', action)
     return { launchItems: state.launchItems.filter((item) => {
       return item.flight_number != action.id
-    }) }
+    }), 
+    padItems: state.padItems }
+  }
+
+  if(action.type === 'ADD_PAD_ITEM'){
+    return { launchItems: state.launchItems,
+      padItems: [action.item, ...state.padItems]
+    }
+  }
+
+  if(action.type === 'DEL_PAD_ITEM'){
+    return { launchItems: state.launchItems,
+        padItems: state.padItems.filter((item) => {
+        return item.id != action.id
+      }) 
+    }
   }
 };
 
@@ -25,20 +37,28 @@ export default ({ children }) => {
     padItems: []
   });
 
-  const addLaunchItem = (item) => {
-    dispatchFavAction({ type: 'ADD_LAUNCH_ITEM', item });
+  const addItem = (item) => {
+    if(item.flight_number){
+      dispatchFavAction({ type: 'ADD_LAUNCH_ITEM', item });
+    } else {
+      dispatchFavAction({ type: 'ADD_PAD_ITEM', item });
+    }
   };
 
-  const delLaunchItem = (id) => {
-    dispatchFavAction({ type: 'DEL_LAUNCH_ITEM', id });
+  const delItem = (item) => {
+    if(item.flight_number){
+      dispatchFavAction({ type: 'DEL_LAUNCH_ITEM', id: item.flight_number });
+    } else {
+      dispatchFavAction({ type: 'DEL_PAD_ITEM', id: item.id });
+    }
   };
 
   return (
     <FavoritesContext.Provider value={{
       launchItems: favState.launchItems,
       padItems: favState.padItems,
-      addLaunchItem,
-      delLaunchItem,
+      addItem,
+      delItem,
     }}>
       {children}
     </FavoritesContext.Provider>
