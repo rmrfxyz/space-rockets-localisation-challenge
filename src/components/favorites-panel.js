@@ -23,6 +23,7 @@ import FavoritesContext from "../store/favorites-context";
 
 import { LaunchItem } from "./launches";
 import { LaunchPadItem } from "./launch-pads";
+import { Flex } from "chakra-ui";
 
 export default () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,7 +58,7 @@ export default () => {
             My favorite X-es
           </DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody overflowY='auto'>
 
             <Tabs isFitted variant='enclosed'>
               <TabList>
