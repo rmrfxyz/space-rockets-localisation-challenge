@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import FavoritesContext from "./favorites-context";
 
 const reducer = (state, action) => {
@@ -33,8 +33,8 @@ const reducer = (state, action) => {
 
 export default ({ children }) => {
   const [favState, dispatchFavAction] = useReducer(reducer, {
-    launchItems: [],
-    padItems: []
+    launchItems: JSON.parse(localStorage.getItem("FavoriteLaunches")) || [],
+    padItems: JSON.parse(localStorage.getItem("FavoritePads")) || []
   });
 
   const addItem = (item) => {
@@ -52,6 +52,11 @@ export default ({ children }) => {
       dispatchFavAction({ type: 'DEL_PAD_ITEM', id: item.id });
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("FavoriteLaunches", JSON.stringify(favState.launchItems))
+    localStorage.setItem("FavoritePads", JSON.stringify(favState.padItems))
+  }, [favState])
 
   return (
     <FavoritesContext.Provider value={{
