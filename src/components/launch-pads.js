@@ -1,11 +1,13 @@
 import React from "react";
-import { Badge, Box, SimpleGrid, Text } from "@chakra-ui/core";
+import { Badge, Box, SimpleGrid, Text, Flex } from "@chakra-ui/core";
 import { Link } from "react-router-dom";
 
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 import { useSpaceXPaginated } from "../utils/use-space-x";
+
+import ToggleFavoriteButton from './toggle-favorite-button';
 
 const PAGE_SIZE = 12;
 
@@ -28,7 +30,20 @@ export default function LaunchPads() {
           data
             .flat()
             .map((launchPad) => (
-              <LaunchPadItem key={launchPad.site_id} launchPad={launchPad} />
+              <Box key={launchPad.site_id} 
+                position='relative'
+              >
+                <Box 
+                  position='absolute'
+                  zIndex='2'
+                  bottom='1rem'
+                  right='1rem'
+                >
+                  <ToggleFavoriteButton item={launchPad} />
+                </Box>
+    
+                <LaunchPadItem launchPad={launchPad} />
+              </Box>
             ))}
       </SimpleGrid>
       <LoadMoreButton
@@ -41,7 +56,7 @@ export default function LaunchPads() {
   );
 }
 
-function LaunchPadItem({ launchPad }) {
+export function LaunchPadItem({ launchPad }) {
   return (
     <Box
       as={Link}
@@ -51,9 +66,10 @@ function LaunchPadItem({ launchPad }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      display='block'
     >
       <Box p="6">
-        <Box d="flex" alignItems="baseline">
+        <Flex alignItems="baseline">
           {launchPad.status === "active" ? (
             <Badge px="2" variant="solid" variantColor="green">
               Active
@@ -74,7 +90,8 @@ function LaunchPadItem({ launchPad }) {
             {launchPad.attempted_launches} attempted &bull;{" "}
             {launchPad.successful_launches} succeeded
           </Box>
-        </Box>
+        </Flex>
+
 
         <Box
           mt="1"

@@ -28,6 +28,7 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 
 import * as TimeSpace from "@mapbox/timespace";
+import ToggleFavoriteButton from './toggle-favorite-button';
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -44,13 +45,25 @@ export default function Launch() {
 
   return (
     <div>
-      <Breadcrumbs
-        items={[
-          { label: "Home", to: "/" },
-          { label: "Launches", to: ".." },
-          { label: `#${launch.flight_number}` },
-        ]}
-      />
+      <Flex
+        justifyContent="space-between"
+      >
+        <Breadcrumbs
+          items={[
+            { label: "Home", to: "/" },
+            { label: "Launches", to: ".." },
+            { label: `#${launch.flight_number}` },
+          ]}
+        />
+
+        <Box 
+          marginTop='1rem'
+          marginRight='1.5rem'
+        >
+          <ToggleFavoriteButton item={launch} />
+        </Box>
+      </Flex>
+      
       <Header launch={launch} />
       <Box m={[3, 6]}>
         <TimeAndLocation launch={launch} />
@@ -110,7 +123,7 @@ function Header({ launch }) {
           <Badge variantColor="red" fontSize={["xs", "md"]}>
             Failed
           </Badge>
-        )}
+        )}      
       </Stack>
     </Flex>
   );
@@ -131,7 +144,7 @@ function TimeAndLocation({ launch }) {
       ])
     tz = fuzzT._z.name;
   }
-
+  
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
