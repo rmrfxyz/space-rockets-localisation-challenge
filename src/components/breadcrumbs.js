@@ -30,7 +30,7 @@ export default function Breadcrumbs({ items }) {
               to={!isCurrentPage ? item.to : undefined}
               textTransform='capitalize'
             >
-              {t('breadCrumbs.' + camelCase(item.label))}
+              { item.label[0] === '#' ? item.label : t('breadCrumbs.' + camelCase(item.label))}
             </BreadcrumbLink>
           </BreadcrumbItem>
         );

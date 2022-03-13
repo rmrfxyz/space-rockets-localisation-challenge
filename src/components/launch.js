@@ -30,6 +30,9 @@ import Breadcrumbs from "./breadcrumbs";
 import * as TimeSpace from "@mapbox/timespace";
 import ToggleFavoriteButton from './toggle-favorite-button';
 
+import { useTranslation } from 'react-i18next';
+import { DateTime } from "luxon";
+
 export default function Launch() {
   let { launchId } = useParams();
   const { data: launch, error } = useSpaceX(`/launches/${launchId}`);
@@ -130,7 +133,8 @@ function Header({ launch }) {
 }
 
 function TimeAndLocation({ launch }) {
-  const { data: launchPad, error } = useSpaceX(`/launchpads/${launch.launch_site.site_id}`);
+  const { data: launchPad } = useSpaceX(`/launchpads/${launch.launch_site.site_id}`);
+  const { t } = useTranslation();
 
   let tz = null;
 
@@ -144,6 +148,8 @@ function TimeAndLocation({ launch }) {
       ])
     tz = fuzzT._z.name;
   }
+
+  let dateTime = DateTime.fromSeconds(launch.launch_date_unix, {zone: tz });
   
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
@@ -156,7 +162,7 @@ function TimeAndLocation({ launch }) {
         </StatLabel>
         <StatNumber fontSize={["md", "xl"]}>
           <Tooltip label={formatDateTime(launch.launch_date_utc)}>
-            {formatDateTime(launch.launch_date_utc, tz)}
+            {t('launch.evtDateTime', { date: parseInt(launch.launch_date_unix), tz})}
           </Tooltip> 
         </StatNumber>
         <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
