@@ -8,7 +8,12 @@ import {
 import { Link } from "react-router-dom";
 import { ChevronsRight } from "react-feather";
 
+import { useTranslation } from 'react-i18next';
+import camelCase from "camelcase";
+
 export default function Breadcrumbs({ items }) {
+  const { t } = useTranslation();
+ 
   return (
     <Breadcrumb
       m="6"
@@ -17,13 +22,15 @@ export default function Breadcrumbs({ items }) {
     >
       {items.map((item, index) => {
         const isCurrentPage = items.length === index + 1;
+
         return (
           <BreadcrumbItem isCurrentPage={isCurrentPage} key={item.label}>
             <BreadcrumbLink
               as={!isCurrentPage ? Link : undefined}
               to={!isCurrentPage ? item.to : undefined}
+              textTransform='capitalize'
             >
-              {item.label}
+              { item.label[0] === '#' ? item.label : t('breadCrumbs.' + camelCase(item.label))}
             </BreadcrumbLink>
           </BreadcrumbItem>
         );

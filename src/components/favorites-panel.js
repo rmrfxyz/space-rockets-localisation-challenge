@@ -40,6 +40,7 @@ export default () => {
     <>
       <Button ref={btnRef}
         onClick={onOpen}
+        color='#000'
       >
         Favs
       </Button>
