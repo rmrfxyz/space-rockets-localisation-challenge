@@ -8,6 +8,14 @@ export default {
       home: 'hjem',
       launches: 'lanceringer',
       launchPads: 'affyringsramper',
-    }
+    },
+    launch: {
+      evtDate: '{{date, DATE_HUGE}}',
+      evtDateTime: '{{date, DATETIME_FULL}}',
+      badge: {
+        ok: 'success',
+        fail: 'failed'
+      },
+    },
   }
 }

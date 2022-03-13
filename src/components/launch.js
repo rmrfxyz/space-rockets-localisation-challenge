@@ -31,7 +31,7 @@ import * as TimeSpace from "@mapbox/timespace";
 import ToggleFavoriteButton from './toggle-favorite-button';
 
 import { useTranslation } from 'react-i18next';
-import { DateTime } from "luxon";
+import i18next from "i18next";
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -148,8 +148,6 @@ function TimeAndLocation({ launch }) {
       ])
     tz = fuzzT._z.name;
   }
-
-  let dateTime = DateTime.fromSeconds(launch.launch_date_unix, {zone: tz });
   
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
@@ -162,7 +160,11 @@ function TimeAndLocation({ launch }) {
         </StatLabel>
         <StatNumber fontSize={["md", "xl"]}>
           <Tooltip label={formatDateTime(launch.launch_date_utc)}>
-            {t('launch.evtDateTime', { date: parseInt(launch.launch_date_unix), tz})}
+            {t('launch.evtDateTime', { 
+              date: parseInt(launch.launch_date_unix), 
+              lang: i18next.language, 
+              tz
+            })}
           </Tooltip> 
         </StatNumber>
         <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>

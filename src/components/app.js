@@ -33,7 +33,7 @@ export default function App() {
 
 const lngs = {
   en: { nativeName: 'English' },
-  dk: { nativeName: 'Dansk' }
+  da: { nativeName: 'Dansk' }
 };
 
 function NavBar() {

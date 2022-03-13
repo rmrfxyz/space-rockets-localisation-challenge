@@ -3,14 +3,17 @@ import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core";
 import { format as timeAgo } from "timeago.js";
 import { Link } from "react-router-dom";
 
-import { useSpaceXPaginated } from "../utils/use-space-x";
+import { useSpaceXPaginated, useSpaceX } from "../utils/use-space-x";
 import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 
-import toggleFavoriteButton from "./toggle-favorite-button";
 import ToggleFavoriteButton from "./toggle-favorite-button";
+
+import { useTranslation } from 'react-i18next';
+import i18next from "i18next";
+import * as TimeSpace from "@mapbox/timespace";
 
 const PAGE_SIZE = 12;
 
@@ -62,6 +65,18 @@ export default function Launches() {
 }
 
 export function LaunchItem({ launch }) {
+  const { t } = useTranslation();
+  const { data: launchPad } = useSpaceX(`/launchpads/${launch.launch_site.site_id}`);
+  let tz;
+  if(launchPad){
+    let fuzzT = TimeSpace
+      .getFuzzyLocalTimeFromPoint(launch.launch_date_unix, [
+        launchPad.location.longitude, 
+        launchPad.location.latitude
+      ])
+    tz = fuzzT._z.name;
+  }
+
   return (
     <Box
       as={Link}
@@ -128,7 +143,15 @@ export function LaunchItem({ launch }) {
           {launch.mission_name}
         </Box>
         <Flex>
-          <Text fontSize="sm">{formatDate(launch.launch_date_utc)} </Text>
+          <Text fontSize="sm">
+            {/* {formatDate(launch.launch_date_utc)}  */}
+            {t('launch.evtDate', { 
+              date: parseInt(launch.launch_date_unix), 
+              lang: i18next.language, 
+              tz
+            })}
+
+          </Text>
           <Text color="gray.500" ml="2" fontSize="sm">
             {timeAgo(launch.launch_date_utc)}
           </Text>

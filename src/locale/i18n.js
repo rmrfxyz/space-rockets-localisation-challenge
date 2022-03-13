@@ -25,16 +25,29 @@ i18n.use(LanguageDetector)
   });
   
 i18n.services
-    .formatter
-      .add('DATETIME_FULL', (val, lang, opts) => {
+  .formatter
+  .add('DATETIME_FULL', (val, lang, opts) => {
 
-        let dtConf = {};
-        if(opts && opts.tz){
-          dtConf.zone = opts.tz;
-        }
-        
-        return DateTime.fromSeconds(val, dtConf)
-          .setLocale(lang)
-          .toLocaleString(DateTime.DATETIME_FULL)
-      });
-  
+    let dtConf = {};
+    if(opts && opts.tz){
+      dtConf.zone = opts.tz;
+    }
+    
+    return DateTime.fromSeconds(val, dtConf)
+      .setLocale(lang)
+      .toLocaleString(DateTime.DATETIME_FULL)
+  });
+
+i18n.services
+  .formatter
+  .add('DATE_HUGE', (val, lang, opts) => {
+
+    let dtConf = {};
+    if(opts && opts.tz){
+      dtConf.zone = opts.tz;
+    }
+    
+    return DateTime.fromSeconds(val, dtConf)
+      .setLocale(lang)
+      .toLocaleString(DateTime.DATE_HUGE)
+  });

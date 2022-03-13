@@ -10,14 +10,12 @@ export default {
       launchPads: 'launch pads',
     },
     launch: {
+      evtDate: '{{date, DATE_HUGE}}',
       evtDateTime: '{{date, DATETIME_FULL}}',
       badge: {
         ok: 'success',
         fail: 'failed'
       },
     },
-    launchPad: {
-
-    }
   }
 }
