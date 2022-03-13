@@ -11,7 +11,7 @@ import LaunchPad from "./launch-pad";
 import FavoritesPanel from "./favorites-panel";
 import FavoritesProvider from "../store/favorites-provider";
 
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 export default function App() {
   return (

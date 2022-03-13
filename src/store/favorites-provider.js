@@ -11,7 +11,7 @@ const reducer = (state, action) => {
 
   if(action.type === 'DEL_LAUNCH_ITEM'){
     return { launchItems: state.launchItems.filter((item) => {
-      return item.flight_number != action.id
+      return item.flight_number !== action.id
     }), 
     padItems: state.padItems }
   }
@@ -25,7 +25,7 @@ const reducer = (state, action) => {
   if(action.type === 'DEL_PAD_ITEM'){
     return { launchItems: state.launchItems,
         padItems: state.padItems.filter((item) => {
-        return item.id != action.id
+        return item.id !== action.id
       }) 
     }
   }

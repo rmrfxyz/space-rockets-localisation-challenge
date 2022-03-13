@@ -5,7 +5,6 @@ import {
   Button,
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
@@ -23,7 +22,6 @@ import FavoritesContext from "../store/favorites-context";
 
 import { LaunchItem } from "./launches";
 import { LaunchPadItem } from "./launch-pads";
-import { Flex } from "chakra-ui";
 
 export default () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

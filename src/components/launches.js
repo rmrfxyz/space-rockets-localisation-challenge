@@ -4,7 +4,6 @@ import { format as timeAgo } from "timeago.js";
 import { Link } from "react-router-dom";
 
 import { useSpaceXPaginated, useSpaceX } from "../utils/use-space-x";
-import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
