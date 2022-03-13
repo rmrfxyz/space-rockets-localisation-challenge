@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Flex, Text } from "@chakra-ui/core";
+import { Flex, Text, Button } from "@chakra-ui/core";
 
 import Launches from "./launches";
 import Launch from "./launch";
@@ -10,6 +10,8 @@ import LaunchPad from "./launch-pad";
 
 import FavoritesPanel from "./favorites-panel";
 import FavoritesProvider from "../store/favorites-provider";
+
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function App() {
   return (
@@ -29,7 +31,15 @@ export default function App() {
   );
 }
 
+const lngs = {
+  en: { nativeName: 'English' },
+  dk: { nativeName: 'Dansk' }
+};
+
 function NavBar() {
+
+  const { i18n } = useTranslation();
+
   return (
     <Flex
       as="nav"
@@ -48,6 +58,20 @@ function NavBar() {
       >
         ¡SPACE·R0CKETS!
       </Text>
+
+      <div>
+        {Object.keys(lngs).map((lng) => (
+          <Button key={lng} 
+            style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} 
+            type="submit" 
+            onClick={() => i18n.changeLanguage(lng)}
+            marginRight='1rem'
+            color='#000'
+          >
+            {lngs[lng].nativeName}
+          </Button>
+        ))}
+      </div>
 
       <FavoritesPanel />
 
